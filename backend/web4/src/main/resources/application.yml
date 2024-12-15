@@ -10,25 +10,32 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: create
     show-sql: true
 
+  data:
+    jdbc:
+      dialect: postgresql
+
+jwt:
+  secret: wpembytrwcvnryxksdbqwjebruyGHyudqgwveytrtrCSnwifoesarjbwe
+  header: Authorization
 
 server:
-  port: 8081
+  port: 8080
 
 
-# Session Management Configuration
-  spring.security.filter.chain.content-negotiation.parameter-strategy=ignore
-  spring.security.filter.chain.any-request.authorized=permitAll
-  spring.security.filter.chain.request-matcher.path.pattern=/api/**
-  spring.security.filter.chain.request-matcher.path.authenticated=true
-  # CSRF Configuration
-  spring.security.csrf.disabled=true
-  # CORS Configuration
-  spring.security.cors.configurationSource.allowedOrigins=http://localhost:3000
-  spring.security.cors.configurationSource.allowedMethods=*
-  spring.security.cors.configurationSource.allowedHeaders=*
-  spring.security.cors.configurationSource.allowCredentials=true
-  spring.security.cors.configurationSource.exposedHeaders=Authorization
-  spring.security.cors.configurationSource.maxAge=3600
+## Session Management Configuration
+#  spring.security.filter.chain.content-negotiation.parameter-strategy=ignore
+#  spring.security.filter.chain.any-request.authorized=permitAll
+#  spring.security.filter.chain.request-matcher.path.pattern=/api/**
+#  spring.security.filter.chain.request-matcher.path.authenticated=true
+#  # CSRF Configuration
+#  spring.security.csrf.disabled=true
+#  # CORS Configuration
+#  spring.security.cors.configurationSource.allowedOrigins=http://localhost:3000
+#  spring.security.cors.configurationSource.allowedMethods=*
+#  spring.security.cors.configurationSource.allowedHeaders=*
+#  spring.security.cors.configurationSource.allowCredentials=true
+#  spring.security.cors.configurationSource.exposedHeaders=Authorization
+#  spring.security.cors.configurationSource.maxAge=3600

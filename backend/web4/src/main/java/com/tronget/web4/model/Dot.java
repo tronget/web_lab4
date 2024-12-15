@@ -1,5 +1,6 @@
 package com.tronget.web4.model;
 
+import com.tronget.web4.model.dto.DotRequestDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NonNull;
@@ -14,8 +15,8 @@ public class Dot {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @JoinColumn(name = "app_user_id", nullable = false)
+    private AppUser appUser;
 
     @NonNull
     private Double x;
@@ -28,4 +29,13 @@ public class Dot {
 
     private boolean isHit;
 
+    public Dot() {
+
+    }
+
+    public Dot(DotRequestDto dotRequestDto) {
+        this.x = dotRequestDto.getX();
+        this.y = dotRequestDto.getY();
+        this.r = dotRequestDto.getR();
+    }
 }

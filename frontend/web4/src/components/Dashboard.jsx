@@ -1,13 +1,18 @@
 // WelcomeDashboard.js
+import { useSetAtom } from 'jotai';
 import { useNavigate} from 'react-router-dom'; // Import useHistory hook
+import { globalUsername, jwtTokenAtom } from '../store';
 
-function WelcomeDashboard({ username="tronget" }) {
-    const history = useNavigate();
+function WelcomeDashboard({ username }) {
+    const navigate = useNavigate();
+	const setJwtToken = useSetAtom(jwtTokenAtom);
+	const setGlobalUsername = useSetAtom(globalUsername);
+
 
     const handleLogout = () => {
-        // Perform logout actions here (e.g., clear session, remove authentication token)
-        // After logout, redirect to the login page
-        history('/');
+		setJwtToken(null);
+		setGlobalUsername(null);
+        navigate('/');
     };
 
     return (
