@@ -4,7 +4,6 @@ import com.tronget.web4.security.CustomUserDetailsService;
 import com.tronget.web4.security.JwtAuthEntryPoint;
 import com.tronget.web4.security.JwtAuthFilter;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpSession;
 import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;

@@ -1,10 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom'; // Import useHistory hook
-import {
-    MDBContainer,
-    MDBInput,
-} from 'mdb-react-ui-kit';
+import { Box, Button, TextField } from '@mui/material';
 
 function SignupPage() {
     const [username, setUsername] = useState('');
@@ -42,28 +39,48 @@ function SignupPage() {
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
             <div className="border rounded-lg p-4" style={{width: '600px', height: 'auto'}}>
-                <MDBContainer className="p-3">
                     <h2 className="mb-4 text-center">Sign Up Page</h2>
                     {/* Render error message if exists */}
                     {error && <p className="text-danger">{error}</p>}
-                    <MDBInput wrapperClass='mb-3' id='username' placeholder={"User Name"} value={username} type='text'
-                              onChange={(e) => setUsername(e.target.value)}/>
-                    <MDBInput wrapperClass='mb-3' placeholder='Password' id='password' type='password' value={password}
-                              onChange={(e) => setPassword(e.target.value)}/>
-                    <MDBInput wrapperClass='mb-3' placeholder='Confirm Password' id='confirmPassword' type='password'
-                              value={confirmPassword}
-                              onChange={(e) => setConfirmPassword(e.target.value)}/>
 
-                    <button className="mb-4 d-block mx-auto fixed-action-btn btn-primary"
-                            style={{height: '40px', width: '100%'}}
-                            onClick={handleSignup}>Sign Up
-                    </button>
+                    <Box sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        width: "50%",
+                        margin: "0 auto 15px",
+                        gap: "15px"
+                    }}>
+                        <TextField 
+                            id="username"
+                            label="Username"
+                            variant="outlined"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
+                        />
+                        <TextField
+                            id="password"
+                            label="Password"
+                            type="password"
+                            autoComplete="current-password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <TextField
+                            id="confirmPassword"
+                            label="Confirm Password"
+                            type="password"
+                            autoComplete="current-password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
+                        />
+                    </Box>
+
+                    <Button variant="contained" onClick={handleSignup}>Sign up</Button>
+
 
                     <div className="text-center">
                         <p>Already Register? <a href="/">Login</a></p>
                     </div>
-
-                </MDBContainer>
             </div>
         </div>
     );

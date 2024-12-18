@@ -4,8 +4,6 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignUpPage";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
-import { globalUsername } from "./store";
-import { useAtomValue } from "jotai";
 
 function App() {
     const router = createBrowserRouter([
@@ -19,36 +17,10 @@ function App() {
         },
         {
             path: "/dashboard",
-            element: <Dashboard username={useAtomValue(globalUsername)} />,
+            element: <Dashboard />,
         },
     ]);
 
-	// useEffect(() => {
-	// 	fetchPoints();
-	// }, []);
-
-    // const fetchPoints = async () => {
-    //     try {
-    //         const response = await fetch("http://localhost:8080/api/dot", {
-    //             method: "GET", // HTTP метод
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 Authorization: "Bearer " + "asdasdasd", // Если нужен токен
-    //             },
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error(
-    //                 "Ошибка при получении данных: " + response.statusText
-    //             );
-    //         }
-
-    //         const data = await response.json();
-    //         console.log(data); // Полученные точки
-    //     } catch (error) {
-    //         console.error("Ошибка:", error);
-    //     }
-    // };
 
     return (
         <>

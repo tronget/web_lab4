@@ -47,7 +47,7 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                     .map(role -> new SimpleGrantedAuthority(role.replace("ROLE_", "")))
                     .collect(Collectors.toList());
 
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(username); // Как это можно оптимизировать?
             UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(userDetails, null, authorities);
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));

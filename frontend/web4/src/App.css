@@ -1,6 +1,6 @@
 #root {
   max-width: 1280px;
-  margin: 0 auto;
+  margin: 30px auto;
   padding: 2rem;
   text-align: center;
 }
@@ -39,4 +39,31 @@
 
 .read-the-docs {
   color: #888;
+}
+
+.canvasSelection {
+  position: relative;
+  width: 500px;
+  height: 500px;
+  aspect-ratio: 1;
+  border: 1px solid black;
+  border-radius: 2px;
+}
+
+#canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1; /* Базовый canvas будет под другим */
+  width: 100%;
+  height: 100%;
+}
+
+#dotsCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  width: 100%;
+  height: 100%;
 }

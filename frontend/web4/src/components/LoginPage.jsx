@@ -1,19 +1,16 @@
 import { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
-import {
-    MDBContainer,
-    MDBInput,
-} from 'mdb-react-ui-kit';
 import { useSetAtom } from 'jotai';
-import { globalUsername, jwtTokenAtom } from '../store';
+import { globalUsernameAtom, jwtTokenAtom } from '../util/store';
+import { Button, TextField, Box } from '@mui/material';
 
 function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
 	const setJwtToken = useSetAtom(jwtTokenAtom);
-	const setGlobalUsername = useSetAtom(globalUsername)
+	const setGlobalUsername = useSetAtom(globalUsernameAtom)
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -37,19 +34,37 @@ function LoginPage() {
         }
     };
 
+
     return (
         <div className="d-flex justify-content-center align-items-center vh-100">
-            <div className="border rounded-lg p-4" style={{ width: '500px', height: 'auto' }}>
-                <MDBContainer className="p-3">
-                    <h2 className="mb-4 text-center">Login Page</h2>
-                    <MDBInput wrapperClass='mb-4' placeholder='Username' id='username' value={username} type='text' onChange={(e) => setUsername(e.target.value)} />
-                    <MDBInput wrapperClass='mb-4' placeholder='Password' id='password' type='password' value={password} onChange={(e) => setPassword(e.target.value)} />
-                    {error && <p className="text-danger">{error}</p>} {/* Render error message if exists */}
-                    <button className="mb-4 d-block btn-primary" style={{ height:'50px',width: '100%' }} onClick={handleLogin}>Sign in</button>
-                    <div className="text-center">
-                        <p>Not a member? <a href="/signup" >Register</a></p>
-                    </div>
-                </MDBContainer>
+            <h2 className="mb-4 text-center">Login Page</h2>
+            <Box sx={{
+                display: "flex",
+                flexDirection: "column",
+                width: "50%",
+                margin: "0 auto 15px",
+                gap: "15px"
+            }}>
+                <TextField 
+                    id="username"
+                    label="Username"
+                    variant="outlined"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                />
+                <TextField
+                    id="password"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                />
+            </Box>
+            {error && <p className="text-danger">{error}</p>} {/* Render error message if exists */}
+            <Button variant="contained" onClick={handleLogin}>Sign in</Button>
+            <div className="text-center">
+                <p>Not a member? <a href="/signup" >Register</a></p>
             </div>
         </div>
     );
