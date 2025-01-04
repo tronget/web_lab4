@@ -4,6 +4,7 @@ import LoginPage from "./components/LoginPage";
 import SignupPage from "./components/SignUpPage";
 import Dashboard from "./components/Dashboard";
 import Header from "./components/Header";
+import ProtectedRoute from "./util/ProtectedRoute";
 
 function App() {
     const router = createBrowserRouter([
@@ -17,7 +18,7 @@ function App() {
         },
         {
             path: "/dashboard",
-            element: <Dashboard />,
+            element: <ProtectedRoute element={<Dashboard />}/>,
         },
     ]);
 
