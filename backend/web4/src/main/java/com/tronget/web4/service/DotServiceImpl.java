@@ -7,6 +7,9 @@ import com.tronget.web4.repository.UserRepository;
 import com.tronget.web4.util.DotChecker;
 import com.tronget.web4.util.DotValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
@@ -20,19 +23,22 @@ public class DotServiceImpl implements DotService {
     private final UserRepository userRepository;
     private final DotValidator dotValidator;
     private final DotChecker dotChecker;
+    private final CacheManager cacheManager;
 
     @Autowired
-    public DotServiceImpl(DotRepository dotRepository, UserRepository userRepository, DotValidator dotValidator, DotChecker dotChecker) {
+    public DotServiceImpl(DotRepository dotRepository, UserRepository userRepository, DotValidator dotValidator, DotChecker dotChecker, CacheManager cacheManager) {
         this.dotRepository = dotRepository;
         this.userRepository = userRepository;
         this.dotValidator = dotValidator;
         this.dotChecker = dotChecker;
+        this.cacheManager = cacheManager;
     }
 
 
     @Override
+    @Cacheable(value = "dots", key = "#username")
     public List<Dot> findAllByUsername(String username) {
-        System.out.println(username);
+        System.out.printf("Get points by username: %s\n", username);
         Long userId = userRepository.findIdByUsername(username);
         List<Dot> dots = dotRepository.findAllByAppUser_Id(userId);
         if (dots == null) {
@@ -53,6 +59,19 @@ public class DotServiceImpl implements DotService {
         boolean isHit = dotChecker.check(newDot);
         newDot.setHit(isHit);
         newDot.setAppUser(user);
-        return dotRepository.save(newDot);
+        dotRepository.save(newDot);
+
+        Cache cache = cacheManager.getCache("dots");
+
+        if (cache != null) {
+            List<Dot> currentDots = cache.get(username, List.class);
+            if (currentDots == null) {
+                currentDots = new ArrayList<>();
+            }
+            currentDots.add(newDot);
+            cache.put(username, currentDots);
+        }
+
+        return newDot;
     }
 }

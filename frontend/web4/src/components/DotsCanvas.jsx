@@ -59,9 +59,6 @@ export const DotsCanvas = forwardRef(({ rValue, dots, newDot, addDot}) => {
     }, [dots]);
 
     useEffect(() => {
-        console.log("meow");
-        console.log(newDot.x);
-        console.log(newDot.isHit);
         drawDot(dotsCanvasRef.current, newDot.x * newDot.r, newDot.y * newDot.r, newDot.isHit ? 'green' : 'red');
     }, [newDot])
 
