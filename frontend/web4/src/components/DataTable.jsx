@@ -17,7 +17,7 @@ const columns = [
       field: 'y',
       headerName: 'y',
       type: 'number',
-      flex: 1
+      flex: 1,
     },
     {
       field: 'r',
@@ -36,7 +36,7 @@ const columns = [
 
 function DataTable({dots}) {
     return (
-        <Box sx={{ margin: "0 auto"}}>
+        <Box className="table_container">
             <DataGrid
                 rows={dots}
                 columns={columns}

@@ -85,10 +85,11 @@ function Dashboard() {
     
     return (
         <>
-            <div style={{position: "relative", marginBottom: 20}}>
+            <div className="dashboard_input_container">
                 <h2>Welcome to Dashboard</h2>
                 <p>Hello, {globalUsername}! You are logged in successfully.</p>
                 <Button
+                    className="button"
                     sx={{
                         position: "absolute",
                         top: 20, right: 0
@@ -99,13 +100,12 @@ function Dashboard() {
                     Logout
                 </Button>
 
-                <FormControlLabel control={<Switch />} label="Turn canvas mode On" />
-
                 <div>
                     <p>R value: {rValue}</p>
                     <Slider
                         sx={{
-                            width: "30%"
+                            width: "60%",
+                            maxWidth: 180
                         }}
                         aria-label="radius"
                         onChange={handleR}
@@ -142,7 +142,8 @@ function Dashboard() {
                         onChange={handleY}
                         error={yValue < -3 || yValue > 5}
                     />
-                    <Button 
+                    <Button
+                        className="button"
                         sx={{position: "absolute", bottom: 0, right: 0}}
                         variant="contained"
                         onClick={sendDot}>Send dot</Button>
@@ -158,7 +159,7 @@ function Dashboard() {
             <DotsPanel dots={dots} setDots={setDots} />
             <div className="canvasSelection">
                 <Canvas rValue={rValue} />
-                <DotsCanvas rValue={rValue} points={dots} newDot={newDot} addDot={addDot} />
+                <DotsCanvas rValue={rValue} dots={dots} newDot={newDot} addDot={addDot} />
             </div>
         </>
     );

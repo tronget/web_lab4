@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { useSetAtom } from 'jotai';
@@ -9,6 +9,7 @@ function LoginPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
+    const passwordRef = useRef(null);
 	const setJwtToken = useSetAtom(jwtTokenAtom);
 	const setGlobalUsername = useSetAtom(globalUsernameAtom)
     const navigate = useNavigate();
@@ -24,7 +25,6 @@ function LoginPage() {
                 "username": username,
                 "password": password
             });
-            console.log('Login successful:', response.data);
 			setJwtToken(response.data.token);
 			setGlobalUsername(response.data.username);
             navigate('/dashboard');
@@ -34,9 +34,21 @@ function LoginPage() {
         }
     };
 
+    const handleLoginKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            passwordRef.current.focus();
+        }
+    };
+
+    const handlePasswordKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleLogin();
+        }
+    };
+
 
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
+        <div>
             <h2 className="mb-4 text-center">Login Page</h2>
             <Box sx={{
                 display: "flex",
@@ -51,14 +63,17 @@ function LoginPage() {
                     variant="outlined"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
+                    onKeyDown={handleLoginKeyPress}
                 />
                 <TextField
+                    inputRef={passwordRef}
                     id="password"
                     label="Password"
                     type="password"
                     autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
+                    onKeyDown={handlePasswordKeyPress}
                 />
             </Box>
             {error && <p className="text-danger">{error}</p>} {/* Render error message if exists */}

@@ -7,12 +7,11 @@ function SignupPage() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [error, setError] = useState(''); // State to manage error messages
-    const navigate = useNavigate(); // Get the history object for redirection
+    const [error, setError] = useState('');
+    const navigate = useNavigate();
 
     const handleSignup = async () => {
         try {
-            // Check for empty fields
             if (!username || !password || !confirmPassword) {
                 setError('Please fill in all fields.');
                 return;
@@ -26,21 +25,24 @@ function SignupPage() {
                 "username": username,
                 "password": password
             });
-            // Handle successful signup
             console.log(response.data);
             navigate('/');
         } catch (error) {
-            // Handle signup error
             console.error('Signup failed:', error.response ? error.response.data : error.message);
             setError(error.response ? error.response.data : error.message);
         }
     };
 
+    const handleInputKeyPress = (event) => {
+        if (event.key === 'Enter') {
+            handleSignup();
+        }
+    };
+
     return (
-        <div className="d-flex justify-content-center align-items-center vh-100">
-            <div className="border rounded-lg p-4" style={{width: '600px', height: 'auto'}}>
+        <div>
+            <div>
                     <h2 className="mb-4 text-center">Sign Up Page</h2>
-                    {/* Render error message if exists */}
                     {error && <p className="text-danger">{error}</p>}
 
                     <Box sx={{
@@ -56,6 +58,7 @@ function SignupPage() {
                             variant="outlined"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
+                            onKeyDown={handleInputKeyPress}
                         />
                         <TextField
                             id="password"
@@ -64,6 +67,7 @@ function SignupPage() {
                             autoComplete="current-password"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
+                            onKeyDown={handleInputKeyPress}
                         />
                         <TextField
                             id="confirmPassword"
@@ -72,6 +76,7 @@ function SignupPage() {
                             autoComplete="current-password"
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
+                            onKeyDown={handleInputKeyPress}
                         />
                     </Box>
 
