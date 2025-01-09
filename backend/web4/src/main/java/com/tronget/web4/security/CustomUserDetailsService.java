@@ -25,7 +25,7 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     @Cacheable(value = "users", key = "#name")
     public UserDetails loadUserByUsername(String name) throws UsernameNotFoundException {
-        System.out.println("First invoke!");
+        System.out.println("Load user from db!");
         AppUser appUser = userRepository.findByUsername(name)
                 .orElseThrow(() -> new UsernameNotFoundException("Username not found."));
         return new User(appUser.getUsername(), appUser.getPassword(), AuthorityUtils.createAuthorityList("ROLE_USER"));

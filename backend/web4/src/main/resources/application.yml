@@ -4,7 +4,7 @@ spring:
 
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/web4
+    url: jdbc:postgresql://db:5432/web4
     username: postgres
     password: postgres
 
@@ -14,12 +14,9 @@ spring:
     show-sql: true
 
   cache:
-    type: redis
+    type: simple
 
   data:
-    redis:
-      host: localhost
-      port: 6379
     jdbc:
       dialect: postgresql
 
@@ -29,19 +26,3 @@ jwt:
 
 server:
   port: 8080
-
-
-## Session Management Configuration
-#  spring.security.filter.chain.content-negotiation.parameter-strategy=ignore
-#  spring.security.filter.chain.any-request.authorized=permitAll
-#  spring.security.filter.chain.request-matcher.path.pattern=/api/**
-#  spring.security.filter.chain.request-matcher.path.authenticated=true
-#  # CSRF Configuration
-#  spring.security.csrf.disabled=true
-#  # CORS Configuration
-#  spring.security.cors.configurationSource.allowedOrigins=http://localhost:3000
-#  spring.security.cors.configurationSource.allowedMethods=*
-#  spring.security.cors.configurationSource.allowedHeaders=*
-#  spring.security.cors.configurationSource.allowCredentials=true
-#  spring.security.cors.configurationSource.exposedHeaders=Authorization
-#  spring.security.cors.configurationSource.maxAge=3600

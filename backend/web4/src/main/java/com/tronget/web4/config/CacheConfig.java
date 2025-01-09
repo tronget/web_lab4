@@ -11,6 +11,21 @@ import org.springframework.context.annotation.Configuration;
 public class CacheConfig {
     @Bean
     public CacheManager cacheManager() {
-        return new ConcurrentMapCacheManager("users", "dots");
+        return new ConcurrentMapCacheManager("users", "dots", "appusers");
     }
 }
+
+
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory() {
+//        return new LettuceConnectionFactory();
+//    }
+//
+//    @Bean
+//    public RedisCacheManager cacheManager(RedisConnectionFactory redisConnectionFactory) {
+//        return RedisCacheManager.builder(RedisCacheWriter.nonLockingRedisCacheWriter(redisConnectionFactory))
+//                .cacheDefaults(RedisCacheConfiguration.defaultCacheConfig()
+//                        .entryTtl(Duration.ofMinutes(30))  // Время жизни кеша
+//                        .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new JdkSerializationRedisSerializer())))
+//                .build();
+//    }

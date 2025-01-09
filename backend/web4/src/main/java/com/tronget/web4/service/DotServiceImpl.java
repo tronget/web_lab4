@@ -38,7 +38,7 @@ public class DotServiceImpl implements DotService {
     @Override
     @Cacheable(value = "dots", key = "#username")
     public List<Dot> findAllByUsername(String username) {
-        System.out.printf("Get points by username: %s\n", username);
+        System.out.printf("Load dots by username: %s\n", username);
         Long userId = userRepository.findIdByUsername(username);
         List<Dot> dots = dotRepository.findAllByAppUser_Id(userId);
         if (dots == null) {
